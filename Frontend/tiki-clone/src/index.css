@@ -1,3 +1,7 @@
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+/* @import "antd/dist/antd.min.css"; */
+
 body {
 	line-height: 1;
   margin: 0;
