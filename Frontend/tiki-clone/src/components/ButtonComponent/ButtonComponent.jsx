@@ -5,7 +5,7 @@ const ButtonComponent = ({ size, bordered, styleButton, styleTextButton, textBut
   return (
     <Button
         size={size}
-        bordered={bordered}
+        bordered={bordered ? bordered : undefined}
         style={styleButton}
         {...rests}
       >
