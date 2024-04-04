@@ -6,7 +6,6 @@ const CardComponent = () => {
   return (
     <WrapperCardStyle
       hoverable
-      style={{ width: "calc(25% - 60px)" }}
       cover={
         <img
           alt="example"
@@ -21,10 +20,9 @@ const CardComponent = () => {
           <StarFilled style={{ fontSize: "10px", color: "yellow" }} />
           <span> | Đã bán 1000+</span>
         </div>
-
         
         <WrapperPriceText>
-          1.000.000đ
+          <span style={{ marginRight: '8px'}}>1.000.000đ</span>
           <WrapperDiscountText>-5%</WrapperDiscountText>
           </WrapperPriceText>
       </WrapperReportText>

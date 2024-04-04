@@ -2,12 +2,15 @@ import styled from "styled-components";
 import { Card } from "antd";
 
 export const WrapperCardStyle = styled(Card)`
-  width: 200px;
+  // width: 200px;
+  position: relative;
   & img {
     width: 200px;
     height: 200px;
   }
-  position: relative;
+  & .ant-card-body {
+    padding: 10px;
+  }
 `;
 
 export const StyleNameProduct = styled.div`

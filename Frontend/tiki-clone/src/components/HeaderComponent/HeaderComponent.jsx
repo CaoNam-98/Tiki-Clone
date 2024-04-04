@@ -19,12 +19,12 @@ const HeaderComponent = () => {
   const { Search } = Input;
 
   return (
-    <div>
+    <div >
       <WrapperHeader>
-        <Col span={6}>
+        <Col span={5}>
           <WrapperTextHeader>TiKi</WrapperTextHeader>
         </Col>
-        <Col span={12}>
+        <Col span={13}>
           <ButtonInputSearch
             size="large"
             bordered={false}
@@ -35,7 +35,7 @@ const HeaderComponent = () => {
         </Col>
         <Col
           span={6}
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{ display: "flex", gap: "54px", alignItems: "center", justifyContent: "flex-end" }}
         >
           <WrapperHeaderAccount>
             <UserOutlined style={{ fontSize: "30px" }} />

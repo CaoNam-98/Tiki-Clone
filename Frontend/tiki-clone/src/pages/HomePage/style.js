@@ -12,7 +12,6 @@ export const WrapperTypeProduct = styled.div`
 
 export const WrapperButtonMore = styled(ButtonComponent)`
     &:hover {
-        
         background: rgb(13, 92, 182);
         & span {
             color: #fff;
@@ -22,8 +21,9 @@ export const WrapperButtonMore = styled(ButtonComponent)`
 
 export const WrapperProducts = styled.div`
     display: flex;
-    justify-content: space-between;
-    gap: 15px;
+    justify-content: space-evenly;
+    gap: 20px 20px;
     margin-top: 20px;
     flex-wrap: wrap;
+    margin-top: 30px;
 `
