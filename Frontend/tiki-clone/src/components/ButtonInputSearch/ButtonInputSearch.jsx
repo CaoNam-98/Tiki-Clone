@@ -31,7 +31,7 @@ const ButtonInputSearch = (props) => {
           backgroundColor: backgroundColorButton,
           borderRadius: 0,
           color: colorButton,
-          border: !bordered && "none",
+          borderTopRightRadius: "8px", borderBottomRightRadius: "8px"
         }}
         textButton={textButton}
         styleTextButton={{color: colorButton}}

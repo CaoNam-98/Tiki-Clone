@@ -5,6 +5,7 @@ import {
   WrapperTypeProduct,
   WrapperButtonMore,
   WrapperProducts,
+  WrapperContentProduct
 } from "./style";
 import slider1 from "../../assets/images/slider1.webp";
 import slider2 from "../../assets/images/slider2.webp";
@@ -12,7 +13,7 @@ import slider3 from "../../assets/images/slider3.webp";
 import slider4 from "../../assets/images/slider4.webp";
 import CardComponent from "../../components/CardComponent/CardComponent";
 import NavbarComponent from "../../components/NavbarComponent/NavbarComponent";
-import {Row, Col} from "antd"
+import { Row, Col } from "antd";
 
 const HomePage = () => {
   const arr = ["TV", "Tủ lạnh", "Laptop"];
@@ -25,64 +26,62 @@ const HomePage = () => {
           })}
         </WrapperTypeProduct>
       </div>
-      <div
-        id="container"
-        style={{
-          backgroundColor: "#efefef",
-          padding: "0 120px",
-          height: "1000px",
-        }}
-      >
-        <SliderComponent arrImages={[slider1, slider2, slider3, slider4]} />
-        <WrapperProducts>
-          <Row gutter={[20, 20]} style={{width: "100%"}}>
-            <Col span={4}>
-              <CardComponent />
-            </Col>
-            <Col span={4}>
-              <CardComponent />
-            </Col>
-            <Col span={4}>
-              <CardComponent />
-            </Col>
-            <Col span={4}>
-              <CardComponent />
-            </Col>
-            <Col span={4}>
-              <CardComponent />
-            </Col>
-            <Col span={4}>
-              <CardComponent />
-            </Col>
-          </Row>
-          
-          
-        </WrapperProducts>
-        <div
-          style={{
-            width: "100%",
-            alignItems: "center",
-            marginTop: "10px",
-            display: "flex",
-            justifyContent: "centers",
-          }}
-        >
-          <WrapperButtonMore
-            textButton="Xem thêm"
-            type="outline"
-            styleButton={{
-              border: "1px solid rgb(11, 116, 229)",
-              color: "rgb(11, 116, 229)",
-              width: "240px",
-              height: "38px",
-              borderRadius: "4px",
-            }}
-            styleTextButton={{ fontWeight: 500 }}
-          />
-        </div>
 
-        {/* <NavbarComponent/> */}
-      </div>
+      <WrapperContentProduct style={{ backgroundColor: "#efefef", padding: "0 120px" }}>
+        <div
+          id="container"
+          style={{ backgroundColor: "#efefef" }}
+        >
+          <SliderComponent arrImages={[slider1, slider2, slider3, slider4]} />
+          {/* <NavbarComponent/> */}
+        </div>
+        <div style={{ backgroundColor: "#efefef" }}>
+          <WrapperProducts>
+            <Row gutter={[20, 20]}>
+              <Col span={4}>
+                <CardComponent />
+              </Col>
+              <Col span={4}>
+                <CardComponent />
+              </Col>
+              <Col span={4}>
+                <CardComponent />
+              </Col>
+              <Col span={4}>
+                <CardComponent />
+              </Col>
+              <Col span={4}>
+                <CardComponent />
+              </Col>
+              <Col span={4}>
+                <CardComponent />
+              </Col>
+            </Row>
+          </WrapperProducts>
+          <div
+            style={{
+              width: "100%",
+              alignItems: "center",
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <WrapperButtonMore
+              textButton="Xem thêm"
+              type="outline"
+              styleButton={{
+                border: "1px solid rgb(11, 116, 229)",
+                color: "rgb(11, 116, 229)",
+                width: "240px",
+                height: "38px",
+                borderRadius: "4px",
+              }}
+              styleTextButton={{ fontWeight: 500 }}
+            />
+          </div>
+        </div>
+      </WrapperContentProduct>
     </>
   );
 };

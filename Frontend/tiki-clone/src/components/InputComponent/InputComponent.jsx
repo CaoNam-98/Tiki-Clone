@@ -1,9 +1,10 @@
 import React from 'react'
 import { Input } from "antd";
+import { WrapperInputSearchStyle } from "./style"
 
 const InputComponent = ({ size, placeholder, bordered, style, ...rests}) => {
   return (
-    <Input
+    <WrapperInputSearchStyle
         size={size}
         placeholder={placeholder}
         bordered={bordered ? bordered : undefined }

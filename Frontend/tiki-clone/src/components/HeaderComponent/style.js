@@ -33,6 +33,9 @@ export const WrapperHeaderCart = styled.div`
 export const WrapperTextHeaderSmall = styled.span`
     font-size: 12px;
     color: #fff;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
 `
 
 export const WrapperCartNumber = styled.span`
