@@ -78,9 +78,13 @@ const updateProduct = async (req, res) => {
 
   const getAllproduct = async (req, res) => {
     try {
-      const response = await ProductService.getAllProduct();
+      const { limit, page, sort, filter } = req.query;
+      console.log('hhhhh: ', limit, page, sort, filter);
+      const response = await ProductService.getAllProduct(Number(limit) || 8, Number(page) || 0, sort, filter);
+      console.log('hhhh: ');
       return res.status(200).json(response);
     } catch (e) {
+      console.log('huhuu');
       return res.status(404).json({
         message: e,
       });
