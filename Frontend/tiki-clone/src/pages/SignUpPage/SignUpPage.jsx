@@ -7,6 +7,9 @@ import { Image } from "antd";
 import { useNavigate } from 'react-router-dom';
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
 import { useState } from "react";
+import { useMutationHooks } from "../../hooks/useMutationHook.js"
+import * as UserService from "../../services/UserService.js"
+import Loading from "../../components/LoadingComponent/Loading"
 
 const SignUpPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -15,6 +18,13 @@ const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
+
+  const mutation = useMutationHooks(
+    data => UserService.signupUser(data),
+  )
+  
+  console.log('mutation 111: ', mutation);
+  const { data, isSuccess, status } = mutation;
 
   const handleOnchangeEmail = (value) => {
     setEmail(value);
@@ -30,6 +40,11 @@ const SignUpPage = () => {
 
   const handleSignUp = () => {
     console.log(email, password, confirmPassword);
+    mutation.mutate({
+      email, 
+      password, 
+      confirmPassword
+    })
   }
 
   const handleNavigateSignIn = () => {
@@ -108,7 +123,9 @@ const SignUpPage = () => {
               value={confirmPassword} onChange={handleOnchangeConfirmPassword}
             />
           </div>
-          <ButtonComponent
+          { data?.status === 'ERR' && <span style={{ color: "red"}}>{data?.message}</span>}
+         <Loading isLoading={status === 'pending'}>
+         <ButtonComponent
            disabled={!email.length || !password.length || !confirmPassword.length}
             onClick={handleSignUp}
             size={40}
@@ -127,6 +144,8 @@ const SignUpPage = () => {
               fontWeight: "700",
             }}
           ></ButtonComponent>
+         </Loading>
+          
           <WrapperTextLight>Quên mật khẩu?</WrapperTextLight>
           <p>Bạn đã có tài khoản? <WrapperTextLight onClick={handleNavigateSignIn}>Đăng nhập</WrapperTextLight></p>
         </WrapperContainerLeft>

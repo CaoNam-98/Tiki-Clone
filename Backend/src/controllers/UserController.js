@@ -3,14 +3,12 @@ const JwtService = require('../services/JwtService');
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword, phone } = req.body;
+    console.log('huhuh: ', req.body);
+    const { email, password, confirmPassword } = req.body;
     const reg =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    console.log("Nam Cao: ", name, email, password, confirmPassword, phone);
     let isCheckEmail = reg.test(email);
-    console.log("isCheckEmail: ", isCheckEmail);
-    if (!name || !email || !password || !confirmPassword || !phone) {
-      console.log("heheh");
+    if (!email || !password || !confirmPassword) {
       return res.status(200).json({
         status: "ERR",
         message: "The input is required",
@@ -38,12 +36,13 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword, phone } = req.body;
+    const { email, password } = req.body;
+    console.log('1111: ', req.body);
+    console.log(email, password);
     const reg =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let isCheckEmail = reg.test(email);
-    if (!name || !email || !password || !confirmPassword || !phone) {
-      console.log("heheh");
+    if (!email || !password) {
       return res.status(200).json({
         status: "ERR",
         message: "The input is required",
@@ -52,11 +51,6 @@ const loginUser = async (req, res) => {
       return res.status(200).json({
         status: "ERR",
         message: "The input is email",
-      });
-    } else if (password !== confirmPassword) {
-      return res.status(200).json({
-        status: "ERR",
-        message: "The password is equal confirmPassword",
       });
     }
 
@@ -79,7 +73,6 @@ const updateUser = async (req, res) => {
         message: "The userId is require",
       });
     }
-    console.log('hihih: ', userId, data);
     const response = await UserService.updateUser(userId, data);
     return res.status(200).json(response);
   } catch (e) {
@@ -93,7 +86,6 @@ const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
     const token = req.headers;
-    console.log('token1111: ', token);
     if (!userId) {
       return res.status(200).json({
         status: "ERR",

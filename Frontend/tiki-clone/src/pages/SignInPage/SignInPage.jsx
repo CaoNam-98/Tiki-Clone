@@ -7,12 +7,22 @@ import { Image } from "antd";
 import { Navigate, useNavigate } from "react-router-dom";
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
 import { useState } from "react";
+import * as UserService from "../../services/UserService.js"
+import { useMutationHooks } from "../../hooks/useMutationHook.js"
+import Loading from "../../components/LoadingComponent/Loading"
 
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const mutation = useMutationHooks(
+    data => UserService.loginUser(data),
+  )
+  
+  console.log('mutation 111: ', mutation);
+  const { data, isSuccess, status } = mutation;
 
   const handleOnchangeEmail = (value) => {
     setEmail(value);
@@ -27,6 +37,11 @@ const SignInPage = () => {
   }
 
   const handleSignIn = () => {
+    console.log('mutation: ', mutation);
+    mutation.mutate({
+      email,
+      password
+    })
     console.log(email, password);
   }
 
@@ -78,7 +93,9 @@ const SignInPage = () => {
             />
           </div>
          
-          <ButtonComponent
+         { data?.status === 'ERR' && <span style={{ color: "red"}}>{data?.message}</span>}
+         <Loading isLoading={status === 'pending'}>
+         <ButtonComponent
             disabled={!email.length || !password.length }
             onClick={handleSignIn}
             size={40}
@@ -97,6 +114,8 @@ const SignInPage = () => {
               fontWeight: "700",
             }}
           ></ButtonComponent>
+         </Loading>
+          
           <WrapperTextLight>Quên mật khẩu?</WrapperTextLight>
           <p>Chưa có tài khoản? <WrapperTextLight onClick={handleNavigateSignUp}>Tạo tài khoản</WrapperTextLight></p>
         </WrapperContainerLeft>

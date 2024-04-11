@@ -12,13 +12,13 @@ function App() {
 
   // Thêm [] để gọi 1 lần
   useEffect(() => {
-    fetchApi();
+    // fetchApi();
   }, [])
 
-  const fetchApi = async () => {
-    const res = await axios.get(`http://localhost:3001/api/product/get-all`)
-    console.log('res: ', res);
-  }
+  // const fetchApi = async () => {
+  //   const res = await axios.get(`http://localhost:3001/api/product/get-all`)
+  //   console.log('res: ', res);
+  // }
 
   return (
 
