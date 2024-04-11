@@ -10,6 +10,8 @@ import { useState } from "react";
 import { useMutationHooks } from "../../hooks/useMutationHook.js"
 import * as UserService from "../../services/UserService.js"
 import Loading from "../../components/LoadingComponent/Loading"
+import * as message from "../../components/Message/Message"
+import { useEffect } from 'react';
 
 const SignUpPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -24,7 +26,17 @@ const SignUpPage = () => {
   )
   
   console.log('mutation 111: ', mutation);
-  const { data, isSuccess, status } = mutation;
+  const { data, isSuccess, isError, status } = mutation;
+  
+  useEffect(() => {
+    console.log('1111111: ', isSuccess, isError);
+    if (isSuccess) {
+      message.success();
+      handleNavigateSignIn();
+    } else if (isError) {
+      message.error();
+    }
+  }, [isSuccess, isError])
 
   const handleOnchangeEmail = (value) => {
     setEmail(value);

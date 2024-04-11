@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const cors = require("cors")
 const bodyParser = require("body-parser")
+const cookieParser = require('cookie-parser')
+
 dotenv.config();
 
 const app = express();
@@ -17,6 +19,7 @@ app.get("/", (req, res) => {
 app.use(cors());
 // Để lấy được req.body thì dùng
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser());
 
 routes(app);
 

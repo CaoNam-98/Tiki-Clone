@@ -10,11 +10,18 @@ import { useState } from "react";
 import * as UserService from "../../services/UserService.js"
 import { useMutationHooks } from "../../hooks/useMutationHook.js"
 import Loading from "../../components/LoadingComponent/Loading"
+import * as message from "../../components/Message/Message"
+import { useEffect } from 'react';
+import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../redux/slides/userSlide";
 
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const mutation = useMutationHooks(
@@ -22,7 +29,31 @@ const SignInPage = () => {
   )
   
   console.log('mutation 111: ', mutation);
-  const { data, isSuccess, status } = mutation;
+  const { data, isSuccess, isError, status } = mutation;
+
+  useEffect(() => {
+    console.log('Hahahaha: ', mutation);
+    if (isSuccess && data.message === "Success") {
+      navigate('/');
+      // Khi login succes thì sẽ có data => cần lưu trữ data này
+      console.log('data: ', data);
+      localStorage.setItem('access_token', data?.access_token);
+      if (data?.access_token) {
+        const decoded = jwtDecode(data?.access_token);
+        console.log('first: ', decoded);
+        // decoded.payload là chứa id user và isAdmin
+        if (decoded?.id) {
+          handleGetDetailsUser(decoded?.id, data?.access_token);
+        }
+      }
+    } 
+  }, [isSuccess])
+
+  const handleGetDetailsUser = async (id, token) => {
+    const res = await UserService.getDetailsUser(id, token);
+    dispatch(updateUser({ ...res?.data, access_token: token }))
+    console.log('res: ', res);
+  }
 
   const handleOnchangeEmail = (value) => {
     setEmail(value);
