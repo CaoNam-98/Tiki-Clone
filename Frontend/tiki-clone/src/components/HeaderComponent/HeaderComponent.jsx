@@ -28,7 +28,7 @@ const HeaderComponent = () => {
   }
 
   return (
-    <div>
+    <div style={{ width: "100%", background: "rgb(26, 148, 255)"}}>
       <WrapperHeader>
         <Col span={5}>
           <WrapperTextHeader>TiKi</WrapperTextHeader>

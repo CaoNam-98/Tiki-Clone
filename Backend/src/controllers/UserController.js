@@ -61,7 +61,8 @@ const loginUser = async (req, res) => {
       // HttpOnly: true chỉ có thể lấy cookie được qua Http và không lấy được không qua safaris
       HttpOnly: true,
       // Thêm bảo mật phía Client
-      Secure: true, 
+      secure: false, 
+      samesite: 'strict'
     });
 
     return res.status(200).json(newReponse);

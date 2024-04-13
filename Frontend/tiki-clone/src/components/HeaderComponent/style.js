@@ -2,10 +2,14 @@ import styled from 'styled-components';
 import { Row } from 'antd';
 
 export const WrapperHeader = styled(Row)`
-    padding: 10px 120px;
+    padding: 10px 0;
     background-color: rgb(26, 148, 255);
     align-items: center;
     flex-wrap: nowrap;
+    width: 1270px;
+    max-width: calc(100% - 48px);
+    margin-left: auto;
+    margin-right: auto;
 `
 
 export const WrapperTextHeader = styled.span`
