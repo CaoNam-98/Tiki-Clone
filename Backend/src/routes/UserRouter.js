@@ -6,6 +6,7 @@ const { authMiddleWare, authUserMiddleWare } = require("../middleware/authMiddle
 // Tạo => Method post
 router.post('/sign-up', userController.createUser)
 router.post('/sign-in', userController.loginUser)
+router.post('/log-out', userController.logoutUser)
 // API update thông tin user
 router.put('/update-user/:id', userController.updateUser)
 // API delete thông tin user

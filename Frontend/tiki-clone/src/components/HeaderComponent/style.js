@@ -52,3 +52,10 @@ export const WrapperCartNumber = styled.span`
     right: -8px;
     top: -4px;
 `
+
+export const WrapperContentPopup = styled.p`
+    cursor: pointer;
+    &:hover {
+        color: #fff;
+    }
+`

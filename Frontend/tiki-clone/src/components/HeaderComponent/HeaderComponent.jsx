@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Input, Badge } from "antd";
+import { Button, ConfigProvider, Popover, Segmented } from "antd";
 import {
   WrapperHeader,
   WrapperTextHeader,
@@ -7,6 +8,7 @@ import {
   WrapperHeaderCart,
   WrapperTextHeaderSmall,
   WrapperCartNumber,
+  WrapperContentPopup,
 } from "./style";
 import ButtonInputSearch from "../ButtonInputSearch/ButtonInputSearch";
 import {
@@ -15,20 +17,44 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import * as UserService from "../../services/UserService.js";
+import { useDispatch } from "react-redux";
+import { resetUser } from "../../redux/slides/userSlide";
+import Loading from "../LoadingComponent/Loading";
 
 const HeaderComponent = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  console.log('user: ', user);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
   const { Search } = Input;
 
   const handleNavigateLogin = () => {
     navigate("/sign-in");
-  }
+  };
+
+  const handleLogout = async () => {
+    setLoading(true);
+    await UserService.logoutUser();
+    dispatch(resetUser());
+    setLoading(false);
+  };
+
+  const content = (
+    <div>
+      <WrapperContentPopup onClick={handleLogout}>
+        Đăng xuất
+      </WrapperContentPopup>
+      <WrapperContentPopup onClick={() => navigate("/profile-user")}>
+        Thông tin người dùng
+      </WrapperContentPopup>
+    </div>
+  );
 
   return (
-    <div style={{ width: "100%", background: "rgb(26, 148, 255)"}}>
+    <div style={{ width: "100%", background: "rgb(26, 148, 255)" }}>
       <WrapperHeader>
         <Col span={5}>
           <WrapperTextHeader>TiKi</WrapperTextHeader>
@@ -55,26 +81,36 @@ const HeaderComponent = () => {
               span={14}
               style={{ display: "flex", justifyContent: "flex-end" }}
             >
-              <WrapperHeaderAccount>
-                <UserOutlined style={{ fontSize: "30px" }} />
-                { user?.name ? (
-                  <div style={{ cursor: "pointer"}}>{ user?.name}</div>
-                ) : (
-                  <div onClick={handleNavigateLogin} style={{ cursor: "pointer"}}>
-                  <WrapperTextHeaderSmall>
-                    Đăng nhập/Đăng ký
-                  </WrapperTextHeaderSmall>
-                  <div style={{ display: "flex", alignItems: "center"}}>
-                    <WrapperTextHeaderSmall>Tài khoản</WrapperTextHeaderSmall>
-                    <CaretDownOutlined />
-                  </div>
-                </div>
-                )}
-                
-              </WrapperHeaderAccount>
+              <Loading isLoading={loading}>
+                <WrapperHeaderAccount>
+                  <UserOutlined style={{ fontSize: "30px" }} />
+                  {user?.access_token ? (
+                    <>
+                      <Popover content={content} trigger="click">
+                        <div style={{ cursor: "pointer" }}>{user?.name.length ? user?.name : user?.email }</div>
+                      </Popover>
+                    </>
+                  ) : (
+                    <div
+                      onClick={handleNavigateLogin}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <WrapperTextHeaderSmall>
+                        Đăng nhập/Đăng ký
+                      </WrapperTextHeaderSmall>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <WrapperTextHeaderSmall>
+                          Tài khoản
+                        </WrapperTextHeaderSmall>
+                        <CaretDownOutlined />
+                      </div>
+                    </div>
+                  )}
+                </WrapperHeaderAccount>
+              </Loading>
             </Col>
             <Col span={10}>
-              <div style={{ display: "flex", justifyContent: "flex-end"}}>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <div style={{ position: "relative" }}>
                   <Badge count={5} size="small">
                     <ShoppingCartOutlined
@@ -85,9 +121,8 @@ const HeaderComponent = () => {
 
                 <WrapperTextHeaderSmall>
                   <div>
-                  <span>Giỏ Hàng</span>
+                    <span>Giỏ Hàng</span>
                   </div>
-                 
                 </WrapperTextHeaderSmall>
               </div>
             </Col>
